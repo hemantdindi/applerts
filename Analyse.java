@@ -47,7 +47,6 @@ public class Analyse {
             PropertyConfigurator.configure(parameter.get("log4j"));
         }catch (NullPointerException e){
             analyse_app_log.error(e);
-            System.out.print(e);
             System.exit(100);
         }
 
@@ -111,7 +110,7 @@ public class Analyse {
                                 exists = rs.getBoolean(1);
                             }
                         }catch (Exception e){
-                            analyse_app_log.error("Filter Phase : Error During verification"+e);;
+                            analyse_app_log.error("Filter Phase : Error During verification"+e);
                             System.exit(106);
                         }
 
@@ -119,7 +118,7 @@ public class Analyse {
                             conn.close();
                         }catch (Exception e){
                             exists=false;
-                            analyse_app_log.error("Filter Phase : Connection Close Error"+e);;
+                            analyse_app_log.error("Filter Phase : Connection Close Error"+e);
                             System.exit(107);
                         }
 
