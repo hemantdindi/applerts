@@ -1,18 +1,17 @@
-package flink.datastream.applerts;
+package flink.datastream.applerts.src;
 /**
  * Created by root on 19/12/15.
  */
 
-import org.apache.flink.api.common.JobExecutionResult;
-import org.apache.flink.api.common.functions.FilterFunction;
+import org.apache.flink.api.common.JobExecutionResult                           ;
+import org.apache.flink.api.common.functions.FilterFunction                     ;
 import org.apache.flink.api.common.functions.RichFlatMapFunction                ;
 import org.apache.flink.api.java.utils.ParameterTool                            ;
 import org.apache.flink.streaming.api.datastream.DataStream                     ;
-import org.apache.flink.streaming.api.datastream.DataStreamSink                 ;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment    ;
 import org.apache.flink.streaming.api.functions.sink.SinkFunction               ;
 import org.apache.flink.util.Collector                                          ;
-import org.apache.flink.api.java.operators.FlatMapOperator                      ;
+
 import javax.json.Json              ;
 import javax.json.JsonArray         ;
 import javax.json.JsonObject        ;
@@ -27,19 +26,16 @@ import java.sql.DriverManager       ;
 import java.sql.Connection          ;
 import java.sql.Statement           ;
 import java.sql.ResultSet           ;
-import java.sql.SQLException        ;
 
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
-
-import flink.datastream.applerts.AppPOJO;
 
 public class Analyse {
     final static Logger analyse_app_log = Logger.getLogger(Analyse.class);
     public static void main(String[] args) throws Exception {
         String propertiesFile;
         if(args.length == 0 )
-            propertiesFile = "/root/packages/config.ini";
+            propertiesFile = "/etc/applerts/config.ini";
             else
             propertiesFile = args[0].trim();
         final ParameterTool parameter = ParameterTool.fromPropertiesFile(propertiesFile);
@@ -47,7 +43,6 @@ public class Analyse {
             PropertyConfigurator.configure(parameter.get("log4j"));
         }catch (NullPointerException e){
             analyse_app_log.error(e);
-            System.exit(100);
         }
 
         final StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
@@ -92,14 +87,12 @@ public class Analyse {
                             Class.forName(dbclass);
                         } catch (ClassNotFoundException e) {
                             analyse_app_log.error("Filter Phase : JDBC Driver Class Not Found"+e);
-                            System.exit(104);
                         }
 
                         try{
                             conn = DriverManager.getConnection(dburl,dbuser,dbpwd);
                         }catch (Exception e){
                             analyse_app_log.error("Filter Phase : Connection Error"+e);
-                            System.exit(105);
                         }
 
                         String  query = "select exists(select 1 from applerts_db where app_id ='"+record.getId().trim()+"')";
@@ -111,7 +104,6 @@ public class Analyse {
                             }
                         }catch (Exception e){
                             analyse_app_log.error("Filter Phase : Error During verification"+e);
-                            System.exit(106);
                         }
 
                         try{
@@ -119,7 +111,6 @@ public class Analyse {
                         }catch (Exception e){
                             exists=false;
                             analyse_app_log.error("Filter Phase : Connection Close Error"+e);
-                            System.exit(107);
                         }
 
                         if (!exists && Long.valueOf(record.getStartedTime().trim()) > todayMilSecs && appStates.contains(record.getFinalStatus())){
@@ -153,14 +144,12 @@ public class Analyse {
                     Class.forName(dbclass);
                 } catch (ClassNotFoundException e) {
                     analyse_app_log.error("Load Phase : JDBC Driver Class Not Found"+e);
-                    System.exit(104);
                 }
 
                 try{
                     conn = DriverManager.getConnection(dburl,dbuser,dbpwd);
                 }catch (Exception e){
                     analyse_app_log.error("Load Phase : Connection Error"+e);
-                    System.exit(105);
                 }
 
                 SimpleDateFormat date_fmt   = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss")                       ;
@@ -196,7 +185,6 @@ public class Analyse {
                     stmt.execute(query);
                 }catch (Exception e){
                     analyse_app_log.error("Load Phase : Error during inserting data"+e);
-                    System.exit(106);
                 }
 
 
@@ -206,7 +194,6 @@ public class Analyse {
                 }catch (Exception e){
                     conn=null;
                     analyse_app_log.error("Load Phase : Error during closing Connection"+e);
-                    System.exit(107);
                 }
             }
         }).name("Load-To-DB");

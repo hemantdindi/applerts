@@ -1,4 +1,4 @@
-package flink.datastream.applerts;
+package flink.datastream.applerts.src;
 import org.joda.time.format.DateTimeFormat      ;
 import org.joda.time.format.DateTimeFormatter   ;
 import java.io.InputStreamReader                ;

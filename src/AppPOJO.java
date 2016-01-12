@@ -1,4 +1,4 @@
-package flink.datastream.applerts;
+package flink.datastream.applerts.src;
 
 /**
  * Created by hemantd on 08/01/2016.
