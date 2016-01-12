@@ -30,7 +30,7 @@ public class FlinkJSONObject {
                     this.jsonObject = null;
                     return;
                 }
-
+ 
             httpconn.setRequestMethod("GET");
             httpconn.setRequestProperty("Accept", "application/json");
             if (httpconn.getResponseCode() != 200) {

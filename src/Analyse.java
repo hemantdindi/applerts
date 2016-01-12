@@ -2,7 +2,6 @@ package flink.datastream.applerts.src;
 /**
  * Created by root on 19/12/15.
  */
-
 import org.apache.flink.api.common.JobExecutionResult                           ;
 import org.apache.flink.api.common.functions.FilterFunction                     ;
 import org.apache.flink.api.common.functions.RichFlatMapFunction                ;
