@@ -14,6 +14,7 @@ CREATE SEQUENCE new_table_id_seq
   MAXVALUE 9223372036854775807
   START 3
   CACHE 1;
+
 ALTER TABLE new_table_id_seq
   OWNER TO applerts;
 
