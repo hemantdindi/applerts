@@ -135,10 +135,11 @@ public class Analyse {
 
                 List<String>    appStates   = Arrays.asList("KILLED", "FAILED")         ;
 
-                Connection  conn = null                                                 ;
-                Statement   stmt = null                                                 ;
+                Connection  conn    = null                                              ;
+                Statement   stmt    = null                                              ;
+                ResultSet   rs      = null                                              ;
+                String alerted      = "false"                                           ;
 
-                String alerted  = "false"                                               ;
                 try {
                     Class.forName(dbclass);
                 } catch (ClassNotFoundException e) {
@@ -160,7 +161,20 @@ public class Analyse {
 
                 if(appStates.contains(appPOJO.getFinalStatus())){
                     String  getEmailId = "select email from alerts where isenabled='enabled' and app_name='"+appPOJO.getName().trim()+"';";
-                    alerted = verifyForAlert(parameter,appPOJO);
+                    String  emailId="noemail";
+
+                    try{
+                        stmt    = conn.createStatement();
+                        rs      = stmt.executeQuery(getEmailId);
+                        while (rs.next()){
+                            emailId = rs.getString("email");
+                        }
+                    }catch (Exception e){
+                        analyse_app_log.error("Fetch EMail ID Phase : Unable to get Email ID"+e);
+                    }
+
+                    MailAlert m = new MailAlert();
+                    m.sendMail(appPOJO,parameter,emailId);
                 }
 
                 String query ="insert into applerts_db" +
