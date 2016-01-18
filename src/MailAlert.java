@@ -34,14 +34,14 @@ public class MailAlert {
                     "<tr> " +
                     "<td>Application Property</td><td>Value</td> " +
                     "</tr> </thead> " +
-                    "<tr> <td>Application ID                </td><td>"+ai.getId()+"</td> </tr>" +
-                    "<tr> <td>Application Name              </td><td>"+ai.getName()+"</td> </tr>" +
-                    "<tr> <td>Application User              </td><td>"+ai.getUser()+"</td> </tr>" +
-                    "<tr> <td>Application Final Status      </td><td>"+ai.getFinalStatus()+"</td> </tr>" +
-                    "<tr> <td>Application Start Time        </td><td>"+ai.getStartedTime()+"</td> </tr>" +
-                    "<tr> <td>Application End Time          </td><td>"+ai.getFinishedTime()+"</td> </tr>" +
-                    "<tr> <td>Application Elapsed Time      </td><td>"+ai.getElapsedTime()+" &nbsp;ms</td> </tr>" +
-                    "<tr> <td>Application Diagnostics       </td><td>"+ai.getDiagnostics()+"</td> </tr>" +
+                    "<tr> <td>Application ID                </td><td>"+ai.getId()           +"</td> </tr>"          +
+                    "<tr> <td>Application Name              </td><td>"+ai.getName()         +"</td> </tr>"          +
+                    "<tr> <td>Application User              </td><td>"+ai.getUser()         +"</td> </tr>"          +
+                    "<tr> <td>Application Final Status      </td><td>"+ai.getFinalStatus()  +"</td> </tr>"          +
+                    "<tr> <td>Application Start Time        </td><td>"+ai.getStartedTime()  +"</td> </tr>"          +
+                    "<tr> <td>Application End Time          </td><td>"+ai.getFinishedTime() +"</td> </tr>"          +
+                    "<tr> <td>Application Elapsed Time      </td><td>"+ai.getElapsedTime()  +" &nbsp;ms</td> </tr>" +
+                    "<tr> <td>Application Diagnostics       </td><td>"+ai.getDiagnostics()  +"</td> </tr>"          +
                     "</table> " +
                     "<br /><br />" +
                     "Please get in touch with the <a href=\"mailto:hemantkumar.dindi@gmail.com\">Hadoop Platform Support Team</a> for more details." +
