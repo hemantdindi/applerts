@@ -50,8 +50,10 @@ public class MailAlert {
             email.setMsg(email_html_msg);
             if(recepient.equals("noemail"))
                 email.addTo(parameterTool.getRequired("alertcc"));
-            else
+            else {
                 email.addTo(recepient);
+                email.addCc(parameterTool.getRequired("alertcc"));
+            }
             email.send();
             isDelivered=true;
             log.info("Triggered alert for application : "+ai.getId());
