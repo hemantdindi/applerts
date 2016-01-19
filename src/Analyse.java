@@ -34,7 +34,7 @@ public class Analyse {
     public static void main(String[] args) throws Exception {
         String propertiesFile;
         if(args.length == 0 )
-            propertiesFile = "C:\\RD\\apache-flink\\config.ini";
+            propertiesFile = "/usr/applerts/config.ini";
         else
             propertiesFile = args[0].trim();
         final ParameterTool parameter = ParameterTool.fromPropertiesFile(propertiesFile);
