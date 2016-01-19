@@ -1,6 +1,6 @@
 package flink.datastream.applerts.src;
 /**
- * Created by root on 19/12/15.
+ * Created by hemantd on 19/12/15.
  */
 import org.apache.flink.api.common.JobExecutionResult                           ;
 import org.apache.flink.api.common.functions.FilterFunction                     ;
@@ -34,8 +34,8 @@ public class Analyse {
     public static void main(String[] args) throws Exception {
         String propertiesFile;
         if(args.length == 0 )
-            propertiesFile = "/etc/applerts/config.ini";
-            else
+            propertiesFile = "C:\\RD\\apache-flink\\config.ini";
+        else
             propertiesFile = args[0].trim();
         final ParameterTool parameter = ParameterTool.fromPropertiesFile(propertiesFile);
         try {
@@ -66,7 +66,8 @@ public class Analyse {
                         cal.set(Calendar.MINUTE, 0);
                         cal.set(Calendar.SECOND, 0);
                         cal.set(Calendar.MILLISECOND, 0);
-                        long todayMilSecs = 1L;//(cal.getTimeInMillis());
+                        //long todayMilSecs = cal.getTimeInMillis();
+                        long todayMilSecs = 1L;
 
                         boolean exists = false;
 
@@ -160,21 +161,21 @@ public class Analyse {
                 appPOJO.setFinishedTime(ftime);
 
                 if(appStates.contains(appPOJO.getFinalStatus())){
-                    String  getEmailId = "select email from alerts where isenabled='enabled' and app_name='"+appPOJO.getName().trim()+"';";
+                    String  getEmailId = "select email from alerts where is_enabled='enabled' and app_name='"+appPOJO.getName().trim()+"';";
                     String  emailId="noemail";
 
                     try{
                         stmt    = conn.createStatement();
                         rs      = stmt.executeQuery(getEmailId);
                         while (rs.next()){
-                            emailId = rs.getString("email");
+                            emailId = rs.getString(1);
                         }
                     }catch (Exception e){
-                        analyse_app_log.error("Fetch EMail ID Phase : Unable to get Email ID"+e);
+                        analyse_app_log.error("Unable to get Email ID"+e);
                     }
 
                     MailAlert m = new MailAlert();
-                    m.sendMail(appPOJO,parameter,emailId);
+                    m.sendMail(appPOJO,parameter.getRequired("smtphost").trim(),parameter.getInt("smtpport"),parameter.getRequired("smtpsender"),parameter.getRequired("alertcc"),emailId);
                 }
 
                 String query ="insert into applerts_db" +
@@ -213,11 +214,6 @@ public class Analyse {
         JobExecutionResult jer = env.execute("Applerts");
     }
 
-    public static String verifyForAlert(ParameterTool parameter,AppPOJO appPOJO){
-
-        String  alerted = "false";
-        return alerted;
-    }
 
     public static class ReadJSONOutput extends RichFlatMapFunction<FlinkJSONObject, AppPOJO> {
         final static Logger rjo_app_log = Logger.getLogger(ReadJSONOutput.class);
@@ -239,19 +235,19 @@ public class Analyse {
                     rjo_app_log.info("NO TRACKING URL AT PROCESSING TIME : "+ appObj.getString("id"));
                 }
                 out.collect(
-                            new AppPOJO(
-                                    appObj.getString("id")                  ,
-                                    appObj.getString("name")                ,
-                                    appObj.getString("user")                ,
-                                    appObj.getString("finalStatus")         ,
-                                    track_url                               ,
-                                    appObj.getString("applicationType")     ,
-                                    appObj.get("startedTime").toString()    ,
-                                    appObj.get("finishedTime").toString()   ,
-                                    appObj.get("elapsedTime").toString()    ,
-                                    appObj.getString("diagnostics")
-                                        )
-                            );
+                        new AppPOJO(
+                                appObj.getString("id")                  ,
+                                appObj.getString("name")                ,
+                                appObj.getString("user")                ,
+                                appObj.getString("finalStatus")         ,
+                                track_url                               ,
+                                appObj.getString("applicationType")     ,
+                                appObj.get("startedTime").toString()    ,
+                                appObj.get("finishedTime").toString()   ,
+                                appObj.get("elapsedTime").toString()    ,
+                                appObj.getString("diagnostics")
+                        )
+                );
             }
         }
     }
