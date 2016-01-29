@@ -2,11 +2,11 @@
 Applerts is a YARN application alerting tool built using Apache Flink.
 
 ##Screenshots
-![Screen 1](http://bigdataqubes.com/images/git/01.png)
-![Screen 2](http://bigdataqubes.com/images/git/02.png)
-![Screen 3](http://bigdataqubes.com/images/git/03.png)
-![Screen 4](http://bigdataqubes.com/images/git/04.png)
-![Screen 5](http://bigdataqubes.com/images/git/05.png)
-![Screen 6](http://bigdataqubes.com/images/git/06.png)
-![Screen 7](http://bigdataqubes.com/images/git/07.png)
+![Screen 1](https://github.com/hemantdindi/applerts/blob/src/images/01.png)
+![Screen 2](https://github.com/hemantdindi/applerts/blob/src/images/02.png)
+![Screen 3](https://github.com/hemantdindi/applerts/blob/src/images/03.png)
+![Screen 4](https://github.com/hemantdindi/applerts/blob/src/images/04.png)
+![Screen 5](https://github.com/hemantdindi/applerts/blob/src/images/05.png)
+![Screen 6](https://github.com/hemantdindi/applerts/blob/src/images/06.png)
+![Screen 7](https://github.com/hemantdindi/applerts/blob/src/images/07.png)
 
