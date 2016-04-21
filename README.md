@@ -2,6 +2,9 @@
 Applerts is a YARN application alerting tool built using Apache Flink.
 
 ##Screenshots
+
+This is the Dashboard of Applerts.
+The bar chart represents number of successful, failed and killed applications.
 ![Screen 1](https://github.com/hemantdindi/applerts/blob/src/images/01.png)
 ![Screen 2](https://github.com/hemantdindi/applerts/blob/src/images/02.png)
 ![Screen 3](https://github.com/hemantdindi/applerts/blob/src/images/03.png)
