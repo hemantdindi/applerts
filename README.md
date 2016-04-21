@@ -27,5 +27,6 @@ List of registered applications for alerts
 ![Screen 7](https://github.com/hemantdindi/applerts/blob/src/images/07.png)
 
 Sample email alert
+
 ![Screen 8](https://github.com/hemantdindi/applerts/blob/src/images/08.PNG)
 
